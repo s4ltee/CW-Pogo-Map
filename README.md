@@ -1,9 +1,8 @@
-# Leaflet Maps with Google Sheets
-Customize Leaflet maps with a linked Google Sheets template or CSV files and GeoJSON data on GitHub
+# POGO Leaflet Map
 
 ![Preview](preview.jpg)
 
-## Live links (replace with your own)
+## Live links
 - Leaflet Map https://s4ltee.github.io/CW-Pogo-Map/
 - Google Sheets template https://docs.google.com/spreadsheets/d/18SIeTRvz_6atCYV1HRPyaNROWBHvdj42kT-ByNUT0r0/edit#gid=0
 
