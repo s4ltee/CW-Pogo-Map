@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="./favicon.png">
 
-  <title>Loading the map...</title>
+  <title>CW Pogo Map - Loading...</title>
 
   <!-- jQuery-->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
@@ -74,7 +74,7 @@
     var map = L.map('map', {
       attributionControl: false,
       zoomControl: false,
-      scrollWheelZoom: false,
+      scrollWheelZoom: true,
       tap: false
     }).setView([41.76,-72.69], 11); // default center is overridden by Google Sheet options and points
   </script>

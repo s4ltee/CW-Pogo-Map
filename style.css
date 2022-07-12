@@ -79,6 +79,10 @@ form {
   radius: 3;
 }
 
+body {
+  background: #F2EFE9;
+}
+
 .loader,
 .loader:before,
 .loader:after {
@@ -115,6 +119,7 @@ form {
 .loader:after {
   left: 1.5em;
 }
+
 @-webkit-keyframes load1 {
   0%,
   80%,
