@@ -117,7 +117,8 @@ $(window).on('load', function() {
         ? L.icon({
           iconUrl: point['Marker Icon'],
           iconSize: size,
-          iconAnchor: anchor
+          iconAnchor: anchor,
+          popupAnchor: [0, -35]
         })
         : createMarkerIcon(point['Marker Icon'],
           'fa',
@@ -127,9 +128,11 @@ $(window).on('load', function() {
 
       if (point.Latitude !== '' && point.Longitude !== '') {
         var marker = L.marker([point.Latitude, point.Longitude], {icon: icon})
-          .bindPopup("<b>" + point['Name'] + '</b><br>' +
-          (point['Image'] ? ('<img src="' + point['Image'] + '"><br> <p><b>Description:</b></p>') : '') +
-          point['Description'] + '<br><p><b>Live Date:</b></p>' + point['Live Date']);
+          .bindPopup("<h6>" + point['Name'] + '</h6>' +
+          (point['Image'] ? ('<img src="' + point['Image'] + '">') : '') + '<b>Description:</b><br>' +
+          point['Description'] + '<br><br><i class="fa-solid fa-calendar-day" style="color:gray;"></i> : ' +
+          point['Live Date'] + '<br><i class="fas fa-map-pin" style="color:gray;"></i> : ' +
+          point['Latitude'] + ', ' + point['Longitude']);
 
         if (layers !== undefined && layers.length !== 1) {
           marker.addTo(layers[point.Group]);
@@ -605,8 +608,10 @@ $(window).on('load', function() {
 
     createDocumentSettings(options);
 
+    //basemapSat.addTo(map); This is google Satelite Data, This is in Development!
     document.title = getSetting('_mapTitle');
     addBaseMap();
+
 
     // Add point markers to the map
     var layers;
@@ -934,6 +939,13 @@ $(window).on('load', function() {
       position: trySetting('_mapAttribution', 'bottomright')
     }).addTo(map);
   }
+  /**
+   * Grabs Google Satelite Data and also adds it to the map
+   */
+  var basemapSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+    maxZoom: 18,
+    subdomains:['mt0','mt1','mt2','mt3']
+  });
 
   /**
    * Returns the value of a setting s
