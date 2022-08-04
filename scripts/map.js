@@ -608,7 +608,7 @@ $(window).on('load', function() {
 
     createDocumentSettings(options);
 
-    //basemapSat.addTo(map); This is google Satelite Data, This is in Development!
+    osm.addTo(map);
     document.title = getSetting('_mapTitle');
     addBaseMap();
 
@@ -939,13 +939,35 @@ $(window).on('load', function() {
       position: trySetting('_mapAttribution', 'bottomright')
     }).addTo(map);
   }
+
   /**
-   * Grabs Google Satelite Data and also adds it to the map
+   * Grabs OSM, Google Steets & Satelite Data
    */
-  var basemapSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+  var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 18,
+  });
+
+  var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+      maxZoom: 20,
+      subdomains:['mt0','mt1','mt2','mt3']
+   });
+
+  var googleSatelite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 18,
     subdomains:['mt0','mt1','mt2','mt3']
   });
+  
+  /**
+   * This data is then used for layer control. This adds the layer ui element to the map
+   */
+
+  var baseMaps = {
+    'Open Street Map': osm,
+    'Google Maps': googleStreets,
+    'Satelite View': googleSatelite
+  }
+
+  L.control.layers(baseMaps).addTo(map);
 
   /**
    * Returns the value of a setting s
