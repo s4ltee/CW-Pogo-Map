@@ -770,7 +770,7 @@ $(window).on('load', function() {
 
     if (dispTitle !== 'off') {
       var title = '<h3 class="pointer">' + getSetting('_mapTitle') + '</h3>';
-      var subtitle = '<h5>' + getSetting('_mapSubtitle') + '</h5>';
+      var subtitle = '<h5 style="font-size:12px;">' + getSetting('_mapSubtitle') + '</h5>';
 
       if (dispTitle == 'topleft') {
         $('div.leaflet-top').prepend('<div class="map-title leaflet-bar leaflet-control leaflet-control-custom">' + title + subtitle + '</div>');
@@ -956,7 +956,7 @@ $(window).on('load', function() {
     maxZoom: 18,
     subdomains:['mt0','mt1','mt2','mt3']
   });
-  
+
   /**
    * This data is then used for layer control. This adds the layer ui element to the map
    */
