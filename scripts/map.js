@@ -131,8 +131,9 @@ $(window).on('load', function() {
           .bindPopup("<h6>" + point['Name'] + '</h6>' +
           (point['Image'] ? ('<img src="' + point['Image'] + '">') : '') + '<b>Description:</b><br>' +
           point['Description'] + '<br><br><i class="fa-solid fa-calendar-day" style="color:gray;"></i> : ' +
-          point['Live Date'] + '<br><i class="fas fa-map-pin" style="color:gray;"></i> : ' +
-          point['Latitude'] + ', ' + point['Longitude']);
+          point['Live Date'] + '<br><i class="fas fa-map-pin" style="color:gray;"></i> : <a href="https://www.google.ca/maps/search/' + point['Latitude'] + ','
+          + point['Longitude'] + '/@' + point['Latitude'] + ',' + point['Longitude'] + '17z" target="_blank">' + point['Latitude'] + ',' + point['Longitude'] +
+          ' <i class="fa-solid fa-diamond-turn-right"></i></a>');
 
         if (layers !== undefined && layers.length !== 1) {
           marker.addTo(layers[point.Group]);
