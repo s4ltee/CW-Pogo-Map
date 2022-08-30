@@ -909,7 +909,7 @@ $(window).on('load', function() {
   function changeAttribution() {
     var attributionHTML = $('.leaflet-control-attribution')[0].innerHTML;
     var credit = 'Data collected';
-    //var credit = 'View <a href="' + googleDocURL + '" target="_blank">data</a>';
+    //var credit = 'View <a href="' + googleDocURL + '" target="_blank">data</a>'; Google Spreadsheet
     var name = getSetting('_authorName');
     var url = getSetting('_authorURL');
 
@@ -921,10 +921,9 @@ $(window).on('load', function() {
     } else {
       credit += ' | ';
     }
-
-    credit += 'View <a href="' + getSetting('_githubRepo') + '">code</a>';
-    if (getSetting('_codeCredit')) credit += ' by ' + getSetting('_codeCredit');
-    credit += ' with ';
+    //Ukraine Flag for Leaflet Devs
+    credit +='<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> '
+    //Leaflet URL
     $('.leaflet-control-attribution')[0].innerHTML = credit + attributionHTML;
   }
 
@@ -955,10 +954,18 @@ $(window).on('load', function() {
    });
 
   var googleSatelite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 18,
+    maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
   });
 
+  /*
+   * This loads s2 cell data
+   */
+   var s2fergus = L.imageOverlay('media/s2cells/DTFergus.png', [[43.711692, -80.402091],[43.697300, -80.360892]]);
+   var devimageoverlay = L.imageOverlay('media/s2cells/Dev.png', [[43.711692, -80.402091],[43.697300, -80.360892]]);
+   var s2CW = L.imageOverlay('media/s2cells/CW Cells.png', [[43.72252, -80.484300],[43.66663, -80.319757]]);
+   //var s2CW = L.imageOverlay('media/s2cells/CW.png', [[43.72242, -80.484381],[43.66663, -80.319757]]); ORG VALUES
+   //var devimageoverlay = L.imageOverlay('media/s2cells/Dev.png', [[43.711626, -80.402091],[43.697309, -80.360892]]).addTo(map); ORG VALUES
   /**
    * This data is then used for layer control. This adds the layer ui element to the map
    */
@@ -967,9 +974,30 @@ $(window).on('load', function() {
     'Open Street Map': osm,
     'Google Maps': googleStreets,
     'Satelite View': googleSatelite
+  };
+
+  //dev mode -> in the works
+  var devmode = false;
+
+  if (devmode == false) {
+    L.control.layers(baseMaps).addTo(map);
+  } else {
+    var overlays = {
+      "S2 Cells Fergus": s2fergus,
+      "S2 Cells CW": s2CW,
+      "dev":devimageoverlay
+    };
+    L.control.layers(baseMaps, overlays).addTo(map);
+    var devpopup = L.popup();
+    function onMapClick(e) {
+        devpopup
+            .setLatLng(e.latlng)
+            .setContent(e.latlng.toString())
+            .openOn(map);
+    }
+    map.on('click', onMapClick)
   }
 
-  L.control.layers(baseMaps).addTo(map);
 
   /**
    * Returns the value of a setting s
